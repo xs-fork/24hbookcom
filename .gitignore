@@ -1,0 +1,7 @@
+/target
+/index
+
+*.csv
+/release
+/book-searcher
+/node_modules

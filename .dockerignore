@@ -1,0 +1,9 @@
+index
+.github
+target
+*.csv
+.git
+
+.vscode/*
+.idea
+.DS_Store

@@ -1,0 +1,115 @@
+{
+  "zh-CN": {
+    "translation": {
+      "settings": {
+        "title": "设置",
+        "index_dir": "索引目录",
+        "index_dir_help": "存储索引的目录。",
+        "index_dir_required": "索引目录不能为空",
+        "index_dir_browse": "浏览",
+        "ipfs_gateways": "IPFS 网关",
+        "ipfs_gateways_help": "IPFS 网关列表，一行一个",
+        "cancel": "取消",
+        "save": "保存",
+        "success": "保存成功",
+        "indexing": {
+          "title": "创建索引",
+          "raw_files": "CSV文件",
+          "raw_files_help": "选择包含原始信息的CSV文件。",
+          "raw_files_required": "CSV文件不能为空。",
+          "raw_files_browse": "浏览",
+          "compressor": "压缩格式",
+          "compresser_help": "选择一个压缩格式: none, lz4, zstd。默认: none。",
+          "cancel": "取消",
+          "create": "创建",
+          "success": "索引创建成功"
+        }
+      }
+    }
+  },
+  "en": {
+    "translation": {
+      "settings": {
+        "title": "Settings",
+        "index_dir": "Index directory",
+        "index_dir_help": "The directory where the index is stored.",
+        "index_dir_required": "The index directory is required",
+        "index_dir_browse": "Browse",
+        "ipfs_gateways": "IPFS Gateways",
+        "ipfs_gateways_help": "IPFS Gateways List, line break",
+        "cancel": "Cancel",
+        "save": "Save",
+        "success": "Setting Saved",
+        "indexing": {
+          "title": "Create index",
+          "raw_files": "Select CSV files",
+          "raw_files_help": "Choose csv files that contain the raw data.",
+          "raw_files_required": "The CSV files are required.",
+          "raw_files_browse": "Browse",
+          "compressor": "Compresser",
+          "compresser_help": "Specify index compressor: none, lz4, zstd. Default: none.",
+          "cancel": "Cancel",
+          "create": "Create",
+          "success": "Index Created"
+        }
+      }
+    }
+  },
+  
+  "fr": {
+    "translation": {
+      "settings": {
+        "title": "Paramètres",
+        "index_dir": "Répertoire de l'index",
+        "index_dir_help": "Le répertoire où l'index est stocké.",
+        "index_dir_required": "Le répertoire de l'index est requis",
+        "index_dir_browse": "Parcourir",
+        "ipfs_gateways": "Passerelles IPFS",
+        "ipfs_gateways_help": "Liste des passerelles IPFS, saut de ligne",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "success": "Paramètre Enregistré",
+        "indexing": {
+          "title": "Créer un index",
+          "raw_files": "Sélectionner les fichiers CSV",
+          "raw_files_help": "Choisissez les fichiers CSV contenant les données brutes.",
+          "raw_files_required": "Les fichiers CSV sont requis.",
+          "raw_files_browse": "Parcourir",
+          "compressor": "Compresser",
+          "compresser_help": "Spécifiez le compresseur d'index : none, lz4, zstd. Par défaut : none.",
+          "cancel": "Annuler",
+          "create": "Créer",
+          "success": "Index Créé"
+        }
+      }
+    }
+  },
+  "it": {
+    "translation": {
+      "settings": {
+        "title": "Impostazioni",
+        "index_dir": "Directory del file index",
+        "index_dir_help": "La directory dove è salvato il file index",
+        "index_dir_required": "Il file index è obbligatorio",
+        "index_dir_browse": "Cerca",
+        "ipfs_gateways": "Gateway IPFS",
+        "ipfs_gateways_help": "Elenco dei gateway IPFS, interruzione di riga",
+        "cancel": "Annulla",
+        "save": "Salva",
+        "success": "Impostazione salvata",
+        "indexing": {
+          "title": "Crea indice",
+          "raw_files": "Seleziona file CSV",
+          "raw_files_help": "Scegli i file CSV che contengono i dati grezzi.",
+          "raw_files_required": "I file CSV sono obbligatori.",
+          "raw_files_browse": "Sfoglia",
+          "compressor": "Comprimi",
+          "compresser_help": "Specifica il compressore dell'indice: none, lz4, zstd. Predefinito: none.",
+          "cancel": "Annulla",
+          "create": "Crea",
+          "success": "Indice creato"
+        }
+      }
+    }
+  }
+}

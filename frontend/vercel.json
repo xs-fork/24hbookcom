@@ -1,0 +1,35 @@
+{
+  "name": "book-searcher",
+  "buildCommand": "vite build -m vercel",
+  "devCommand": "vite dev -m vercel --port $PORT",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/search",
+      "destination": "https://book-searcher.eu.org/search"
+    },
+    {
+      "source": "/libgen/:path*",
+      "destination": "https://library.lol/:path*"
+    },
+    {
+      "source": "/zlibrary/:path*",
+      "destination": "https://static.1lib.sk/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    }
+  ]
+}

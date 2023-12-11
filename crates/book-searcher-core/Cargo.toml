@@ -1,0 +1,27 @@
+[package]
+name = "book-searcher-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description.workspace = true
+homepage.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+env_logger = { workspace = true }
+log = { workspace = true }
+serde = { workspace = true }
+serde_with = { workspace = true }
+
+tantivy = { workspace = true, features = ["mmap", "lz4-compression", "zstd-compression"] }
+tantivy-meta-tokenizer = { path = "../tantivy-meta-tokenizer" }
+
+csv = "1.1"
+indicatif = "0.17"
+sysinfo = { version = "0.29", default-features = false }
+
+[features]
+default = []
+pinyin = ["tantivy-meta-tokenizer/pinyin"]
