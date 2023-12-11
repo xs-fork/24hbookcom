@@ -54,9 +54,9 @@ const BookRecommendations: React.FC = () => {
             <Tab key={category}>{removeEmoji(category)}</Tab>
           ))}
         </TabList>
-        <TabPanels px={0}>
+        <TabPanels>
           {categories.map((category) => (
-            <TabPanel key={category}>
+            <TabPanel key={category} px={0}>
               <Flex direction="column">
                 <BooksView
                   books={booksByCategory[category] || []}
