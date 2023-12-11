@@ -46,12 +46,12 @@ const BookRecommendations: React.FC = () => {
   const fetchBooks = async (query: SearchQuery): Promise<{ books: Book[] }> => {
     const params = new URLSearchParams(query as unknown as Record<string, string>); // 将类型断言改为 Record<string, string>
   
-    const response = await fetch(`http://127.0.0.1:7070/search?${params.toString()}`, {
+    const response = await fetch(`https://24hbook.com/search?${params.toString()}`, {
       method: 'GET',
     });
   
     const data = await response.json();
-    console.log('Request URL:', `https://127.0.0.1:7070/search?${params.toString()}`);
+    console.log('Request URL:', `https://24hbook.com/search?${params.toString()}`);
   
     return { books: data.books || [] };
   };
