@@ -3,6 +3,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, Flex, Button } from '@chakra-u
 import BooksView, { BooksViewProps } from './BooksView';
 import { Book, SearchQuery } from '../scripts/searcher';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
+import search from '../scripts/search'; // Import the search function
 
 const BookRecommendations: React.FC = () => {
   const categories = ['文学', '历史', '经济', '科学', '小说'];
@@ -15,25 +16,24 @@ const BookRecommendations: React.FC = () => {
         const books = await fetchRandomBooks(category);
         return { [category]: books };
       });
-  
+
       const booksByCategoryArray = await Promise.all(promises);
       const combinedBooksByCategory = Object.assign({}, ...booksByCategoryArray);
       setBooksByCategory(combinedBooksByCategory);
     };
-  
+
     fetchBooksForAllCategories();
   }, []);
-  
 
   const fetchRandomBooks = async (category: string): Promise<Book[]> => {
     // Perform API request to fetch random books for the given category
-    const response = await fetchBooks({ query: removeEmoji(category), limit: 30, offset: 0 });
+    const response = await search({ query: removeEmoji(category), limit: 30, offset: 0 });
     return response.books;
   };
 
   const fetchBooksByCategory = async (category: string): Promise<Book[]> => {
     // Perform API request to fetch all books for the given category
-    const response = await fetchBooks({ query: removeEmoji(category), limit: 100, offset: 0 });
+    const response = await search({ query: removeEmoji(category), limit: 100, offset: 0 });
     return response.books;
   };
 
@@ -42,23 +42,6 @@ const BookRecommendations: React.FC = () => {
     const books = await fetchBooksByCategory(category);
     setBooksByCategory((prev) => ({ ...prev, [category]: books }));
   };
-
-  const fetchBooks = async (query: SearchQuery): Promise<{ books: Book[] }> => {
-    const params = new URLSearchParams(query as unknown as Record<string, string>); // 将类型断言改为 Record<string, string>
-  
-    const response = await fetch(`https://24hbook.com/search?${params.toString()}`, {
-      method: 'GET',
-    });
-  
-    const data = await response.json();
-    console.log('Request URL:', `https://24hbook.com/search?${params.toString()}`);
-  
-    return { books: data.books || [] };
-  };
-  
-  
-  
-  
 
   // Helper function to remove emoji from category
   const removeEmoji = (text: string): string => text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
