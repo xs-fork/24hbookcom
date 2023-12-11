@@ -3,7 +3,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, Flex, Button } from '@chakra-u
 import BooksView, { BooksViewProps } from './BooksView';
 import { Book, SearchQuery } from '../scripts/searcher';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import search from '../scripts/search'; // Import the search function
+import search from '../scripts/searcher'; // Import the search function
 
 const BookRecommendations: React.FC = () => {
   const categories = ['文学', '历史', '经济', '科学', '小说'];
@@ -28,7 +28,8 @@ const BookRecommendations: React.FC = () => {
   const fetchRandomBooks = async (category: string): Promise<Book[]> => {
     // Perform API request to fetch random books for the given category
     const response = await search({ query: removeEmoji(category), limit: 30, offset: 0 });
-    return response.books;
+    return response.bobooks={booksByCategory[category] ? booksByCategory[category] : []}
+oks;
   };
 
   const fetchBooksByCategory = async (category: string): Promise<Book[]> => {
@@ -47,28 +48,34 @@ const BookRecommendations: React.FC = () => {
   const removeEmoji = (text: string): string => text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
 
   return (
-    <Flex direction={{ base: 'row' }} px={{ base: 4, md: 8 }} py={0} align="center" mt={4} mb={4}>
+    <Flex direction={{ base: 'row' }} px={{ base: 0, md: 8 }} py={0} align="center" mt={4} mb={4}>
       <Tabs width="100%" variant='soft-rounded' colorScheme='green'>
         <TabList>
           {categories.map((category) => (
             <Tab key={category}>{removeEmoji(category)}</Tab>
           ))}
         </TabList>
-        <TabPanels>
-          {categories.map((category) => (
-            <TabPanel key={category} px={0}>
-              <Flex direction="column">
+      <TabPanels px ="0">
+        {categories.map((category) => (
+          <TabPanel key={category} px={0}>
+            <Flex direction="column">
+              {booksByCategory[category] ? (
                 <BooksView
-                  books={booksByCategory[category] || []}
+                  books={booksByCategory[category]}
                   pagination={{ pageSize: 20, pageIndex: 0 }}
                   setPagination={(pagination) => console.log(pagination)}
                   pageCount={1}
                 />
-                <Button rightIcon={<ArrowForwardIcon />} variant='link' mt={4} onClick={() => handleViewAllClick(category)}>
-                  查看全部
-                </Button>
-              </Flex>
-            </TabPanel>
+              ) : (
+                <p>没有书籍可显示</p>
+              )}
+              <Button rightIcon={<ArrowForwardIcon />} variant='link' mt={4} onClick={() => handleViewAllClick(category)}>
+                查看全部
+              </Button>
+            </Flex>
+          </TabPanel>
+        ))}
+      </TabPanels>
           ))}
         </TabPanels>
       </Tabs>
