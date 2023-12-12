@@ -7,7 +7,7 @@ import search from '../scripts/searcher';
 import { useLayoutEffect } from 'react';
 
 const BookRecommendations: React.FC = () => {
-  const categories = ['文学', '心理', '艺术', '设计',  '小说', '哲学', '传记', '教育', '历史', '宗教', '计算', '理财', '政治', '军事', '儿童'];
+  const categories = ['文学', '心理', '艺术', '设计', '小说', '哲学', '传记', '教育', '历史', '宗教', '计算', '理财', '政治', '军事', '儿童'];
   const pageSize = 20; // 每页显示的数量
 
   const [booksByCategory, setBooksByCategory] = useState<{ [key: string]: Book[] }>({});
@@ -63,7 +63,7 @@ const BookRecommendations: React.FC = () => {
         <TabPanels px="0">
           {categories.map((category) => (
             <TabPanel key={category} px={0}>
-              <Flex direction="column" alignItems="center">
+              <Flex direction="column">
                 {booksByCategory[category] ? (
                   <BooksView
                     books={booksByCategory[category]}
@@ -75,9 +75,16 @@ const BookRecommendations: React.FC = () => {
                   <p style={{ textAlign: 'center', marginTop: '220px', marginBottom: '700px' }}>加载中...</p>
 
                 )}
-                <Button  width={{ base: '90%', md: '300px' }}  rightIcon={<ArrowDownIcon />}   mt={4} onClick={() => loadMoreBooks(category)}>
-                  查看更多
-                </Button>
+                <Flex justify="center" alignItems="center" p={{ base:4, md:4}}>
+                  <Button
+                    width={{ base: '100%', md: '300px' }}
+                    rightIcon={<ArrowDownIcon />}
+                    mt={4}
+                    onClick={() => loadMoreBooks(category)}
+                  >
+                    查看更多
+                  </Button>
+                </Flex>
               </Flex>
             </TabPanel>
           ))}
