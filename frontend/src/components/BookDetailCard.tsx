@@ -76,7 +76,7 @@ const BookDetailView: React.FC<BookDetailViewProps> = ({ book }) => {
       <Card
         mt={{ base: 1, md: 2 }}
         mb={{ base: 2, md: 4 }}
-        mx={{ base: 0, lg: 8 }}
+        mx={{ base: 0, lg: 0 }}
         variant="outline"
       >
         <CardHeader>
