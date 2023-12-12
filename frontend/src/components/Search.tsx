@@ -6,7 +6,8 @@ import { useDebounce, usePrevious } from 'ahooks';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { isEqual } from 'lodash';
-import { ChevronDownIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, CloseIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { useColorMode } from '@chakra-ui/react';
 
 function rmEmptyString<T extends { [s: string]: unknown }>(query: T) {
   return Object.fromEntries(Object.entries(query).filter(([_, v]) => v !== '')) as T;
@@ -29,7 +30,7 @@ interface SearchOption {
 }
 
 const searchOptions: SearchOption[] = [
-  { value: 'complex', label: '综合搜索', icon: <Icon as={TbReportSearch} boxSize={6} color="gray.500" mr={2} /> },
+  { value: 'complex', label: '搜书', icon: <Icon as={TbReportSearch} boxSize={6} color="gray.500" mr={2} /> },
   { value: 'title', label: '书名', icon: <Icon as={TbBook2} boxSize={6} color="gray.500" mr={2} /> },
   { value: 'author', label: '作者', icon: <Icon as={TbUserCircle} boxSize={6} color="gray.500" mr={2} /> },
   { value: 'publisher', label: '出版社', icon: <Icon as={TbBuilding} boxSize={6} color="gray.500" mr={2} /> },
@@ -83,17 +84,18 @@ const Search: React.FC<SearchProps> = ({ setBooks, pagination, setPageCount, res
       setPageCount(Math.ceil(total / pagination.pageSize));
     }
   }, [result.data]);
-
+  const { colorMode } = useColorMode();
   return (
 
     <Flex direction={{ base: 'row' }} px={{ base: 4, md: 8 }} py={0} gap="2" align="center" mb={4}>
-      <Menu>
+      <Menu >
         <MenuButton
           as={Button}
           display="flex"
           rightIcon={<ChevronDownIcon />}
           px={2}
           py={2}
+          bg={colorMode === 'dark' ? 'rgb(26, 32, 44)' : 'white'}
           transition='all 0.2s'
           borderRadius='md'
           borderWidth='1px'
@@ -114,13 +116,13 @@ const Search: React.FC<SearchProps> = ({ setBooks, pagination, setPageCount, res
       </Menu>
       <InputGroup flex="1">
         <Input
-          placeholder={`${t('输入关键词')} ${t(selectedOption.toLowerCase())}`}
+          placeholder={`${t('输入关键词搜索')} `}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
         {searchText && (
           <InputRightElement pr="2">
-            <SmallCloseIcon boxSize={3} color="gray.500" cursor="pointer" onClick={clearInput} />
+            <CloseIcon boxSize={3} color="gray.500" cursor="pointer" onClick={clearInput} />
           </InputRightElement>
         )}
       </InputGroup>
