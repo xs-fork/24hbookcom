@@ -2,74 +2,81 @@ import React, { useState, useEffect } from 'react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs, Flex, Button } from '@chakra-ui/react';
 import BooksView, { BooksViewProps } from './BooksView';
 import { Book, SearchQuery } from '../scripts/searcher';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import search from '../scripts/searcher'; // Import the search function
+import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import search from '../scripts/searcher';
+import { useLayoutEffect } from 'react';
 
 const BookRecommendations: React.FC = () => {
-  const categories = ['文学', '历史', '经济', '科学', '小说'];
+  const categories = ['文学', '心理', '艺术', '设计',  '小说', '哲学', '传记', '教育', '历史', '宗教', '计算', '理财', '政治', '军事', '儿童'];
+  const pageSize = 20; // 每页显示的数量
 
   const [booksByCategory, setBooksByCategory] = useState<{ [key: string]: Book[] }>({});
 
-  useEffect(() => {
-    const fetchBooksForAllCategories = async () => {
-      const promises = categories.map(async (category) => {
-        const books = await fetchRandomBooks(category);
-        return { [category]: books };
-      });
+  const fetchBooksForCategory = async (category: string, offset = 0) => {
+    try {
+      const response = await search({ query: removeEmoji(category), limit: pageSize, offset });
+      const newBooks = response.books || [];
 
-      const booksByCategoryArray = await Promise.all(promises);
-      const combinedBooksByCategory = Object.assign({}, ...booksByCategoryArray);
-      setBooksByCategory(combinedBooksByCategory);
-    };
+      // 随机排序
+      newBooks.sort(() => Math.random() - 0.5);
 
-    fetchBooksForAllCategories();
+      setBooksByCategory((prev) => ({
+        ...prev,
+        [category]: offset === 0 ? newBooks : [...(prev[category] || []), ...newBooks],
+      }));
+    } catch (error) {
+      console.error('Error fetching books for category:', category, error);
+    }
+  };
+
+  const loadMoreBooks = async (category: string) => {
+    const offset = (booksByCategory[category]?.length || 0);
+    fetchBooksForCategory(category, offset);
+  };
+
+  useLayoutEffect(() => {
+    if (categories.length > 0) {
+      const defaultCategory = categories[0];
+      fetchBooksForCategory(defaultCategory);
+    }
   }, []);
 
-  const fetchRandomBooks = async (category: string): Promise<Book[]> => {
-    // Perform API request to fetch random books for the given category
-    const response = await search({ query: removeEmoji(category), limit: 30, offset: 0 });
-    return response.booksByCategory[category] ? response.booksByCategory[category] : [];
-  };
-
-  const fetchBooksByCategory = async (category: string): Promise<Book[]> => {
-    // Perform API request to fetch all books for the given category
-    const response = await search({ query: removeEmoji(category), limit: 100, offset: 0 });
-    return response.books;
-  };
-
-  const handleViewAllClick = async (category: string) => {
-    // Perform API request to fetch all books for the given category
-    const books = await fetchBooksByCategory(category);
-    setBooksByCategory((prev) => ({ ...prev, [category]: books }));
-  };
-
-  // Helper function to remove emoji from category
   const removeEmoji = (text: string): string => text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
 
   return (
-    <Flex direction={{ base: 'row' }} px={{ base: 0, md: 8 }} py={0} align="center" mt={4} mb={4}>
+    <Flex direction={{ base: 'row', md: 'column' }} px={{ base: 0, md: 4 }} py={0} align="center" mt={4} mb={4}>
       <Tabs width="100%" variant='soft-rounded' colorScheme='green'>
-        <TabList>
+        <TabList
+          px={{ base: 4, md: 4 }}
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        >
           {categories.map((category) => (
-            <Tab key={category}>{removeEmoji(category)}</Tab>
+            <Tab key={category} onClick={() => fetchBooksForCategory(category)}>
+              {category} {/* 不使用 removeEmoji(category) */}
+            </Tab>
           ))}
         </TabList>
         <TabPanels px="0">
           {categories.map((category) => (
             <TabPanel key={category} px={0}>
-              <Flex direction="column">
+              <Flex direction="column" alignItems="center">
                 {booksByCategory[category] ? (
                   <BooksView
                     books={booksByCategory[category]}
-                    pagination={{ pageSize: 20, pageIndex: 0 }}
-                    setPagination={(pagination) => console.log(pagination)}
-                    pageCount={1}
+                    pagination={{ pageSize, pageIndex: 0 }}
+                    pageCount={0}
+                    showPagination={false}
                   />
                 ) : (
-                  <p>没有书籍可显示</p>
+                  <p style={{ textAlign: 'center', marginTop: '220px', marginBottom: '700px' }}>加载中...</p>
+
                 )}
-                <Button rightIcon={<ArrowForwardIcon />} variant='link' mt={4} onClick={() => handleViewAllClick(category)}>
-                  查看全部
+                <Button  width={{ base: '90%', md: '300px' }}  rightIcon={<ArrowDownIcon />}   mt={4} onClick={() => loadMoreBooks(category)}>
+                  查看更多
                 </Button>
               </Flex>
             </TabPanel>
