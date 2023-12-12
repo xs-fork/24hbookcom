@@ -208,13 +208,13 @@ const Preview: React.FC<PreviewProps> = ({ book, onClose }: PreviewProps) => {
                 <Text isTruncated>{book.title}</Text>
               </Heading>
               <Flex flex="1" justifyContent="flex-end" pr="2rem">
-                <Select value={gateway} maxW={256} onChange={handleChangeGateWay}>
-                  {['竞速下载'].concat(ipfsGateways).map((item, index) => (
+                {/* <Select value={gateway} maxW={100} onChange={handleChangeGateWay}>
+                  {['下载'].concat(ipfsGateways).map((item, index) => (
                     <option key={index} value={item}>
                       {item}
                     </option>
                   ))}
-                </Select>
+                </Select> */}
                 <Button
                   ml="1rem"
                   as={ExternalLink}
