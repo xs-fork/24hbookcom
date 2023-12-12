@@ -28,7 +28,7 @@ const BookRecommendations: React.FC = () => {
   const fetchRandomBooks = async (category: string): Promise<Book[]> => {
     // Perform API request to fetch random books for the given category
     const response = await search({ query: removeEmoji(category), limit: 30, offset: 0 });
-    return response.bobooks ? booksByCategory[category] : [];
+    return response.booksByCategory[category] ? response.booksByCategory[category] : [];
   };
 
   const fetchBooksByCategory = async (category: string): Promise<Book[]> => {
@@ -54,27 +54,27 @@ const BookRecommendations: React.FC = () => {
             <Tab key={category}>{removeEmoji(category)}</Tab>
           ))}
         </TabList>
-      <TabPanels px ="0">
-        {categories.map((category) => (
-          <TabPanel key={category} px={0}>
-            <Flex direction="column">
-              {booksByCategory[category] ? (
-                <BooksView
-                  books={booksByCategory[category]}
-                  pagination={{ pageSize: 20, pageIndex: 0 }}
-                  setPagination={(pagination) => console.log(pagination)}
-                  pageCount={1}
-                />
-              ) : (
-                <p>没有书籍可显示</p>
-              )}
-              <Button rightIcon={<ArrowForwardIcon />} variant='link' mt={4} onClick={() => handleViewAllClick(category)}>
-                查看全部
-              </Button>
-            </Flex>
-          </TabPanel>
-        ))}
-      </TabPanels>
+        <TabPanels px="0">
+          {categories.map((category) => (
+            <TabPanel key={category} px={0}>
+              <Flex direction="column">
+                {booksByCategory[category] ? (
+                  <BooksView
+                    books={booksByCategory[category]}
+                    pagination={{ pageSize: 20, pageIndex: 0 }}
+                    setPagination={(pagination) => console.log(pagination)}
+                    pageCount={1}
+                  />
+                ) : (
+                  <p>没有书籍可显示</p>
+                )}
+                <Button rightIcon={<ArrowForwardIcon />} variant='link' mt={4} onClick={() => handleViewAllClick(category)}>
+                  查看全部
+                </Button>
+              </Flex>
+            </TabPanel>
+          ))}
+        </TabPanels>
       </Tabs>
     </Flex>
   );
