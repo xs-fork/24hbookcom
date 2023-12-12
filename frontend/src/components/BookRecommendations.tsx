@@ -28,8 +28,7 @@ const BookRecommendations: React.FC = () => {
   const fetchRandomBooks = async (category: string): Promise<Book[]> => {
     // Perform API request to fetch random books for the given category
     const response = await search({ query: removeEmoji(category), limit: 30, offset: 0 });
-    return response.bobooks={booksByCategory[category] ? booksByCategory[category] : []}
-oks;
+    return response.bobooks ? booksByCategory[category] : [];
   };
 
   const fetchBooksByCategory = async (category: string): Promise<Book[]> => {
