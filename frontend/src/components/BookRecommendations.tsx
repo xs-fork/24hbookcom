@@ -75,8 +75,6 @@ const BookRecommendations: React.FC = () => {
           </TabPanel>
         ))}
       </TabPanels>
-          ))}
-        </TabPanels>
       </Tabs>
     </Flex>
   );
