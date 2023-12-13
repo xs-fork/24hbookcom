@@ -14,7 +14,8 @@ const BookRecommendations: React.FC = () => {
 
   const fetchBooksForCategory = async (category: string, offset = 0) => {
     try {
-      const response = await search({ query: removeEmoji(category), limit: pageSize, offset });
+      const categoryWithoutEmoji = removeEmoji(category);
+      const response = await search({ query: categoryWithoutEmoji, limit: pageSize, offset });
       const newBooks = response.books || [];
 
       // 随机排序
@@ -41,6 +42,8 @@ const BookRecommendations: React.FC = () => {
     }
   }, []);
 
+  const emojis = ['📚', '🧠', '🎨', '✏️', '📖', '🤔', '📜', '📚', '📜', '⛪️', '💻', '💰', '🏛️', '⚔️', '🧒'];
+
   const removeEmoji = (text: string): string => text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
 
   return (
@@ -54,9 +57,9 @@ const BookRecommendations: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <Tab key={category} onClick={() => fetchBooksForCategory(category)}>
-              {category} {/* 不使用 removeEmoji(category) */}
+              {emojis[index as number]} {category}
             </Tab>
           ))}
         </TabList>
@@ -75,7 +78,7 @@ const BookRecommendations: React.FC = () => {
                   <p style={{ textAlign: 'center', marginTop: '220px', marginBottom: '700px' }}>加载中...</p>
 
                 )}
-                <Flex justify="center" alignItems="center" p={{ base:4, md:4}}>
+                <Flex justify="center" alignItems="center" p={{ base: 4, md: 4 }}>
                   <Button
                     width={{ base: '100%', md: '300px' }}
                     rightIcon={<ArrowDownIcon />}
