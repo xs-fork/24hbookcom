@@ -1,4 +1,4 @@
-import { Flex, HStack, Icon, IconButton, Spacer } from '@chakra-ui/react';
+import { Flex, HStack, Image, Icon, IconButton, Spacer } from '@chakra-ui/react';
 import React, { Suspense, useState } from 'react';
 import { SkipNavContent, SkipNavLink } from '@chakra-ui/skip-nav';
 
@@ -28,7 +28,9 @@ const Main: React.FC<{ searchComponentKey: number }> = ({ searchComponentKey }) 
 
   return (
     <>
+      
       <SkipNavContent />
+      
       <Search
         key={searchComponentKey}
         setBooks={setBooks}
@@ -51,6 +53,8 @@ const Main: React.FC<{ searchComponentKey: number }> = ({ searchComponentKey }) 
   );
 };
 
+
+
 const Settings =
   import.meta.env.VITE_TAURI === '1'
     ? React.lazy(() => import('./components/Settings-tauri'))
@@ -70,9 +74,12 @@ const App: React.FC = () => {
   return (
     <RootContext.Provider value={{ ipfsGateways, setIpfsGateways }}>
       <Flex direction="column" minH="100vh">
+      
         <SkipNavLink>Skip to content</SkipNavLink>
-        <Header title="24h Book Searcher" onClick={() => setSearchComponentKey((key) => key + 1)}>
+        <Header title="24h搜书网" onClick={() => setSearchComponentKey((key) => key + 1)}>
+          
           <HStack spacing={{ base: 1, md: 2 }}>
+          
             {/* <LanguageSwitch /> */}
             <ColorModeSwitch />
             <Suspense>
