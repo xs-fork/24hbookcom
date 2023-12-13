@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Spacer, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, HStack, Heading, Image, Spacer, useColorMode } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 
 import { useInView } from 'react-intersection-observer';
@@ -8,6 +8,10 @@ export interface HeaderProps {
   children: React.ReactNode;
   onClick: () => void;
 }
+
+const YourLogoImage = () => (
+  <Image src="/src/images/logo.png" alt="24h book" boxSize="28px" objectFit="cover" />
+);
 
 const Header: React.FC<HeaderProps> = ({ title, children, onClick }) => {
   const { ref, inView } = useInView({ threshold: 0 });
@@ -36,15 +40,18 @@ const Header: React.FC<HeaderProps> = ({ title, children, onClick }) => {
         bgColor={bgColor}
         boxShadow={!inView ? 'sm' : 'none'}
       >
-        <Heading
-          cursor="pointer"
-          onClick={onClick}
-          as="h1"
-          fontSize="xl"
-          my={import.meta.env.VITE_TAURI === '1' ? 0 : 2}
-        >
-          {title}
-        </Heading>
+        <HStack spacing={1} align="center">
+          <YourLogoImage />
+          <Heading
+            cursor="pointer"
+            onClick={onClick}
+            as="h1"
+            fontSize="xl"
+            my={import.meta.env.VITE_TAURI === '1' ? 0 : 2}
+          >
+            {title}
+          </Heading>
+        </HStack>
         <Spacer />
         <Box>{children}</Box>
       </Flex>
