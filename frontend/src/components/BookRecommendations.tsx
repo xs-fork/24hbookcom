@@ -14,8 +14,7 @@ const BookRecommendations: React.FC = () => {
 
   const fetchBooksForCategory = async (category: string, offset = 0) => {
     try {
-      const categoryWithoutEmoji = removeEmoji(category);
-      const response = await search({ query: categoryWithoutEmoji, limit: pageSize, offset });
+      const response = await search({ query: category, limit: pageSize, offset });
       const newBooks = response.books || [];
 
       // 随机排序
@@ -44,7 +43,6 @@ const BookRecommendations: React.FC = () => {
 
   const emojis = ['📚', '🧠', '🎨', '✏️', '📖', '🤔', '📜', '📚', '📜', '⛪️', '💻', '💰', '🏛️', '⚔️', '🧒'];
 
-  const removeEmoji = (text: string): string => text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
 
   return (
     <Flex direction={{ base: 'row', md: 'column' }} px={{ base: 0, md: 4 }} py={0} align="center" mt={4} mb={4}>
