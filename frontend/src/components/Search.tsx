@@ -47,6 +47,9 @@ const Search: React.FC<SearchProps> = ({ setBooks, pagination, setPageCount, res
   const [isbn, setISBN] = useState<string>('');
   const clearInput = () => {
     setSearchText('');
+    setAuthor('');
+    setPublisher('');
+    setISBN('');
   };
 
 
@@ -54,12 +57,26 @@ const Search: React.FC<SearchProps> = ({ setBooks, pagination, setPageCount, res
   const [searchText, setSearchText] = useState<string>('');
 
 
-  const queryKey = useDebounce(
-    rmEmptyString({
-      ...(selectedOption === 'complex' ? { title, author, publisher, extension, language, isbn, query: searchText } : { [selectedOption]: searchText }),
-    }),
-    { wait: 300 }
-  );
+  let queryKey = {};
+
+  if (selectedOption === 'complex') {
+    queryKey = { query: searchText };
+  } else if (selectedOption === 'title') {
+    queryKey = { title: searchText };
+  } else if (selectedOption === 'author') {
+    queryKey = { author: searchText };
+  } else if (selectedOption === 'publisher') {
+    queryKey = { publisher: searchText };
+  } else if (selectedOption === 'isbn') {
+    queryKey = { isbn: searchText };
+  }
+
+  queryKey = useDebounce(rmEmptyString(queryKey), { wait: 300 });
+
+
+
+
+
 
   const prevQueryKey = usePrevious(queryKey);
 
@@ -73,17 +90,24 @@ const Search: React.FC<SearchProps> = ({ setBooks, pagination, setPageCount, res
       }),
     keepPreviousData: true,
   });
-
-  // ...
-
-
   useEffect(() => {
+    console.log('Search parameters:', {
+      selectedOption,
+      title,
+      author,
+      publisher,
+      isbn,
+      query: searchText,
+    });
+
     if (result.data) {
       const { books, total } = result.data;
+      console.log('Received data:', books);
       if (books !== undefined) setBooks(books);
       setPageCount(Math.ceil(total / pagination.pageSize));
     }
   }, [result.data]);
+
   const { colorMode } = useColorMode();
   return (
 
