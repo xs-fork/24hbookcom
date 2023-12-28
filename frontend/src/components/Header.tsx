@@ -9,9 +9,14 @@ export interface HeaderProps {
   onClick: () => void;
 }
 
-const YourLogoImage = () => (
-  <Image src="/src/images/logo.png" alt="24h book" boxSize="28px" objectFit="cover" />
-);
+const YourLogoImage = () => {
+  const { colorMode } = useColorMode();
+  const logoSrc = colorMode === 'dark' ? '../../light.png' : '../../dark.png';
+
+  return (
+    <Image src={logoSrc} alt="24hbook" boxSize="50px"  />
+  );
+};
 
 const Header: React.FC<HeaderProps> = ({ title, children, onClick }) => {
   const { ref, inView } = useInView({ threshold: 0 });

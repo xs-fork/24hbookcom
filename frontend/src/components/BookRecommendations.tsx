@@ -5,6 +5,7 @@ import { Book, SearchQuery } from '../scripts/searcher';
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import search from '../scripts/searcher';
 import { useLayoutEffect } from 'react';
+import IndexBooksView from './IndexBooksView';
 
 const BookRecommendations: React.FC = () => {
   const categories = ['文学', '心理', '艺术', '设计', '小说', '哲学', '传记', '教育', '历史', '宗教', '计算', '理财', '政治', '军事', '儿童'];
@@ -17,8 +18,11 @@ const BookRecommendations: React.FC = () => {
       const response = await search({ query: category, limit: pageSize, offset });
       const newBooks = response.books || [];
 
-      // 随机排序
-      newBooks.sort(() => Math.random() - 0.5);
+      // Fisher-Yates 随机置换算法
+      for (let i = newBooks.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newBooks[i], newBooks[j]] = [newBooks[j], newBooks[i]];
+      }
 
       setBooksByCategory((prev) => ({
         ...prev,
@@ -49,6 +53,7 @@ const BookRecommendations: React.FC = () => {
       <Tabs width="100%" variant='soft-rounded' colorScheme='green'>
         <TabList
           px={{ base: 4, md: 4 }}
+          mb={{ base: 4, md: 4 }}
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
@@ -66,7 +71,7 @@ const BookRecommendations: React.FC = () => {
             <TabPanel key={category} px={0}>
               <Flex direction="column">
                 {booksByCategory[category] ? (
-                  <BooksView
+                  <IndexBooksView
                     books={booksByCategory[category]}
                     pagination={{ pageSize, pageIndex: 0 }}
                     pageCount={0}
@@ -76,7 +81,7 @@ const BookRecommendations: React.FC = () => {
                   <p style={{ textAlign: 'center', marginTop: '220px', marginBottom: '700px' }}>加载中...</p>
 
                 )}
-                <Flex justify="center" alignItems="center" p={{ base: 4, md: 4 }}>
+                <Flex justify="center" alignItems="center" px={{ base: 4, md: 4 }}>
                   <Button
                     width={{ base: '100%', md: '300px' }}
                     rightIcon={<ArrowDownIcon />}

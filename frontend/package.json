@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.3.0",
   "type": "module",
-  "repository": "https://github.com/book-searcher-org/book-searcher",
+  "repository": "https://lib.24hbook.com",
   "scripts": {
     "dev": "vite",
     "dev2": "vite -m development.lite",

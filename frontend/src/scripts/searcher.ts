@@ -33,13 +33,10 @@ export interface SearchQuery {
 export default async function search(query: SearchQuery) {
   const cleanedQuery: SearchQuery = {
     ...query,
-    md5: query.md5 || '',
-    isbn: query.isbn || '',
-    language: query.language || '',
-    author: query.author || '',
-    id: query.id || 0,
-    extension: query.extension || '',
+    
   };
+
+  console.log('Cleaned Query:', cleanedQuery);
 
   if (import.meta.env.VITE_TAURI === '1') {
     return await import('./searcher-tauri').then(({ default: search }) => search(cleanedQuery));

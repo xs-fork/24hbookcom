@@ -8,6 +8,7 @@ import ColorModeSwitch from './components/ColorModeSwitch';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import LanguageSwitch from './components/LanguageSwitch';
+import { TbBook2, TbBuilding, TbHash, TbReportSearch, TbUserCircle } from 'react-icons/tb';
 import RootContext from './store';
 import Search from './components/Search';
 import { version, repository } from '../package.json';
@@ -23,14 +24,13 @@ const Main: React.FC<{ searchComponentKey: number }> = ({ searchComponentKey }) 
   const [pagination, setPagination] = React.useState(initialPagination);
   const [pageCount, setPageCount] = useState<number>(1);
   const [books, setBooks] = useState<Book[]>([]);
-  // 使用 books.length 检查用户是否正在搜索
   const isSearching = Boolean(books.length);
 
   return (
     <>
-      
+
       <SkipNavContent />
-      
+
       <Search
         key={searchComponentKey}
         setBooks={setBooks}
@@ -74,17 +74,26 @@ const App: React.FC = () => {
   return (
     <RootContext.Provider value={{ ipfsGateways, setIpfsGateways }}>
       <Flex direction="column" minH="100vh">
-      
+
         <SkipNavLink>Skip to content</SkipNavLink>
         <Header title="24h搜书网" onClick={() => setSearchComponentKey((key) => key + 1)}>
-          
+
           <HStack spacing={{ base: 1, md: 2 }}>
-          
+
             {/* <LanguageSwitch /> */}
             <ColorModeSwitch />
-            <Suspense>
+            <IconButton
+              as={ExternalLink}
+              aria-label={t('nav.repository')}
+              title={t('nav.repository') ?? ''}
+              href={repository}
+              variant="ghost"
+              icon={<Icon  as={TbBook2} boxSize={6}  />}
+            />
+            
+            {/* <Suspense>
               <Settings />
-            </Suspense>
+            </Suspense> */}
           </HStack>
         </Header>
 

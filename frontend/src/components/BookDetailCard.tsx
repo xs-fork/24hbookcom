@@ -90,7 +90,7 @@ const BookDetailView: React.FC<BookDetailViewProps> = ({ book }) => {
               <Text>{title}</Text>
             </Heading>
             <Flex gap="2">
-              {md5 != undefined && md5.length > 0 ? (
+              {/* {md5 != undefined && md5.length > 0 ? (
                 <Button
                   as={ExternalLink}
                   minWidth="unset"
@@ -98,13 +98,16 @@ const BookDetailView: React.FC<BookDetailViewProps> = ({ book }) => {
                 >
                   {t('table.redirect2aa')}
                 </Button>
-              ) : null}
+              ) : null} */}
               {extension === 'epub' &&
-              ipfs_cid != undefined &&
-              ipfs_cid.length > 0 &&
-              rootContext.ipfsGateways.length > 0 ? (
+                ipfs_cid != undefined &&
+                ipfs_cid.length > 0 &&
+                rootContext.ipfsGateways.length > 0 ? (
                 <Button onClick={onOpen}>{t('table.preview')}</Button>
               ) : null}
+              <Button as={ExternalLink} minWidth="unset" href="https://lib.24hbook.com" target="_blank">
+                我的书库
+              </Button>
             </Flex>
           </Flex>
         </CardHeader>

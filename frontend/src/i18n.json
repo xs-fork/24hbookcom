@@ -60,7 +60,7 @@
   "zh-CN": {
     "translation": {
       "nav": {
-        "repository": "GitHub 仓库",
+        "repository": "我的书库",
         "toggle_dark": "切换到暗黑模式",
         "toggle_light": "切换到亮色模式",
         "toggle_language": "切换语言"
@@ -74,7 +74,7 @@
         "author": "作者",
         "publisher": "出版社",
         "extension": "扩展名",
-        "filesize": "文件大小",
+        "filesize": "大小",
         "language": "语言",
         "year": "年份",
         "pages": "页数",
@@ -95,8 +95,8 @@
         "previous_page": "上一页",
         "page": "第 {{page}} 页",
         "collapse": "收起",
-        "preview": "在线阅读",
-        "redirect2aa": "更多介紹"
+        "preview": "在线试读",
+        "redirect2aa": "介紹"
       },
       "search": {
         "complex": "综合搜索 书名、作者、ISBN等"
