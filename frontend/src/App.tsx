@@ -91,9 +91,9 @@ const App: React.FC = () => {
               icon={<Icon  as={TbBook2} boxSize={6}  />}
             />
             
-            {/* <Suspense>
+            <Suspense>
               <Settings />
-            </Suspense> */}
+            </Suspense>
           </HStack>
         </Header>
 
