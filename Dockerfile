@@ -1,7 +1,7 @@
 FROM --platform=$BUILDPLATFORM node:20-bullseye as frontend
 
 COPY . /source
-RUN cd /source/frontend && npm install --legacy-peer-deps && npm run build
+RUN cd /source/frontend && npm install -g pnpm && pnpm install --shamefully-flatten && pnpm run build
 
 FROM rust:1.70.0-bullseye as backend
 
